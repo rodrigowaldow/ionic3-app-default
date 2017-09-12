@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the RegisterPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -12,11 +12,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-register',
+  templateUrl: 'register.html',
 })
-export class LoginPage {
-
+export class RegisterPage {
+  
   user = {} as User;
 
   constructor(
@@ -25,25 +25,18 @@ export class LoginPage {
     public navParams: NavParams) {
   }
 
-  async login(user:User){
+  async register(user:User){
     try {
-      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
       console.log(result);
-      if(result){
-        this.navCtrl.push("IntroPage")
-      }
 
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 
-  register(){
-    this.navCtrl.push("RegisterPage");
-  }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+    console.log('ionViewDidLoad RegisterPage');
   }
 
 }

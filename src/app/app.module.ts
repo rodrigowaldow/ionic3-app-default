@@ -4,16 +4,18 @@ import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { FeedPageModule } from '../pages/feed/feed.module';
+import { IntroPageModule } from '../pages/intro/intro.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FeedPageModule } from '../pages/feed/feed.module';
-import { IntroPageModule } from '../pages/intro/intro.module';
+
 import { MovieProvider } from '../providers/movie/movie';
 import { firebase_config } from './app.firebase.config';
 
@@ -22,6 +24,7 @@ import { firebase_config } from './app.firebase.config';
     MyApp,
     AboutPage,
     ContactPage,
+    HomePage,
     TabsPage
   ],
   imports: [
@@ -30,7 +33,8 @@ import { firebase_config } from './app.firebase.config';
     FeedPageModule,
     IntroPageModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebase_config)
+    AngularFireModule.initializeApp(firebase_config),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

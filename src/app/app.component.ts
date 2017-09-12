@@ -17,7 +17,7 @@ import { ConfigProvider} from '../providers/config/config';
   ]
 })
 export class MyApp {
-  rootPage:any;
+  rootPage:any = 'LoginPage';
 
   constructor(
     platform: Platform, 
@@ -29,15 +29,15 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
-      let config = configProvider.getConfigData();
+      /* let config = configProvider.getConfigData();
       if(config == null){
         this.rootPage = IntroPage;
         configProvider.setConfiData(false);
       }else{
-        this.rootPage = LoginPage;
+        this.rootPage = TabsPage;
       }
 
-      console.log(config);
+      console.log(config); */
 
       statusBar.styleDefault();
       splashScreen.hide();
