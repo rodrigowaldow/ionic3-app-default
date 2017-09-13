@@ -1,6 +1,6 @@
 {
   "name": "MyRootAppV3",
-  "app_id": "",
+  "app_id": "719048ef",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
