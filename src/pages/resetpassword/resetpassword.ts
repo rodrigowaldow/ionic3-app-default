@@ -1,11 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { User } from '../../models/user';
 import { AuthService } from '../../providers/auth/auth-service';
 import { NgForm } from '@angular/forms';
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the ResetpasswordPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,45 +12,44 @@ import { NgForm } from '@angular/forms';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-resetpassword',
+  templateUrl: 'resetpassword.html',
 })
-export class LoginPage {
-
-  user = {} as User;
+export class ResetpasswordPage {
+  userEmail: string = '';
 
   @ViewChild('form') form: NgForm;
-  
+
   constructor(
     private afAuth: AuthService,
     private toast: ToastController,
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams) {
   }
 
-  login(){
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ResetpasswordPage');
+  }
+
+  resetPassword() {
     if (this.form.form.valid) {
-      this.afAuth.signIn(this.user)
+      let toast = this.toast.create({
+        duration: 3000,
+        position: 'bottom'
+      });
+
+      this.afAuth.resetPassword(this.userEmail)
         .then(() => {
-          this.navCtrl.setRoot("HomePage")
+          toast.setMessage("Your request has been sent by e-mail.").present();
+
+          this.navCtrl.pop();
         })
         .catch((error: any) => {
-          let toast = this.toast.create({
-            duration: 3000,
-            position: 'bottom'
-          });
-
           if (error.code == 'auth/invalid-email') {
             toast.setMessage("Email address is not valid.");
           }
-          else if (error.code == 'auth/user-disabled') {
-            toast.setMessage("User corresponding to the given email has been disabled.");
-          }
           else if (error.code == 'auth/user-not-found') {
             toast.setMessage("There is no user corresponding to the given email.");
-          }
-          else if (error.code == 'auth/wrong-password') {
-            toast.setMessage("Password is invalid for the given email, or the account corresponding to the email does not have a password set.");
           }
           else
             toast.setMessage(error.message);
@@ -59,18 +57,6 @@ export class LoginPage {
           toast.present();
         })
     }
-  }
-
-  register(){
-    this.navCtrl.push("RegisterPage");
-  }
-
-  resetPassword() {
-    this.navCtrl.push("ResetpasswordPage");
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
 }

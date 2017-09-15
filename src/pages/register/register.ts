@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { User } from '../../models/user';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../../providers/auth/auth-service';
 
 /**
  * Generated class for the RegisterPage page.
@@ -18,20 +19,49 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class RegisterPage {
   
   user = {} as User;
+  
+  @ViewChild('form') form: NgForm;
 
   constructor(
-    private afAuth: AngularFireAuth,
+    private afAuth: AuthService,
+    private toast: ToastController,
     public navCtrl: NavController, 
     public navParams: NavParams) {
   }
 
-  async register(user:User){
-    try {
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
-      console.log(result);
+  async createAccount() {
+    if (this.form.form.valid) {
+      let toast = this.toast.create({
+        duration: 3000,
+        position: 'bottom'
+      });
 
-    } catch (error) {
-      console.error(error);
+      await this.afAuth.createUser(this.user)
+        .then((user: any) => {
+          user.sendEmailVerification();
+
+          toast.setMessage("User successfully created.").present();
+
+          this.navCtrl.setRoot("HomePage");
+        })
+        .catch((error: any) => {
+          if (error.code == 'auth/email-already-in-use'){
+            toast.setMessage("Already exists an account with the given email address.");
+          }
+          else if (error.code == 'auth/invalid-email') {
+            toast.setMessage("Email address is not valid.");
+          }
+          else if (error.code == 'auth/operation-not-allowed') {
+            toast.setMessage("Email or password accounts are not enabled.");
+          }
+          else if (error.code == 'auth/weak-password') {
+            toast.setMessage("Password is not strong enough.");
+          }
+          else
+            toast.setMessage(error.message);
+
+          toast.present()
+        })
     }
   }
 

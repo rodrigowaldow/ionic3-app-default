@@ -6,13 +6,16 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Home</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-
+  <p>Username: {{ (profileData | async) ?.username }}</p>
+  <p>First name: {{ (profileData | async) ?.firstName }}</p>
+  <p>Last name: {{ (profileData | async) ?.lastName }}</p>
 </ion-content>
+
+<button ion-button block color="primary" (click)="signOut()">Logout</button>

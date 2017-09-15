@@ -6,4 +6,3 @@ export const firebase_config = {
     storageBucket: "app-ionic-4b101.appspot.com",
     messagingSenderId: "177138698418"
   };
-  //firebase.initializeApp(firebase_config);
