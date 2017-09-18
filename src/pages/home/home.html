@@ -16,6 +16,7 @@
   <p>Username: {{ (profileData | async) ?.username }}</p>
   <p>First name: {{ (profileData | async) ?.firstName }}</p>
   <p>Last name: {{ (profileData | async) ?.lastName }}</p>
+
+  <button ion-button block color="primary" (click)="signOut()">Logout</button>
 </ion-content>
 
-<button ion-button block color="primary" (click)="signOut()">Logout</button>

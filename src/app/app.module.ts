@@ -23,25 +23,25 @@ import { AdMobFree } from '@ionic-native/admob-free';
 import { MovieProvider } from '../providers/movie/movie';
 import { AuthService } from '../providers/auth/auth-service';
 import { ResetpasswordPage } from '../pages/resetpassword/resetpassword';
-import { RegisterPage } from '../pages/register/register';
-import { LoginPage } from '../pages/login/login';
+
 import { ConfigProvider } from '../providers/config/config';
+import { SignupPage } from '../pages/signup/signup';
+import { SigninWithEmailPage } from '../pages/signinwithemail/signinwithemail';
+import { SigninPage } from '../pages/signin/signin';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
-    TabsPage
-    
+    SigninPage,
+    SigninWithEmailPage,
+    SignupPage,
+    ResetpasswordPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    FeedPageModule,
-    IntroPageModule,
     HttpModule,
     AngularFireModule.initializeApp(firebase_config),
     AngularFireAuthModule,
@@ -50,11 +50,11 @@ import { ConfigProvider } from '../providers/config/config';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
-    TabsPage
-    
+    SigninPage,
+    SigninWithEmailPage,
+    SignupPage,
+    ResetpasswordPage
   ],
   providers: [
     StatusBar,

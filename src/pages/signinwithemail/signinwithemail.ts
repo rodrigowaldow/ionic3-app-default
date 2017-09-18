@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { User } from '../../models/user';
 import { AuthService } from '../../providers/auth/auth-service';
 import { NgForm } from '@angular/forms';
+import { HomePage } from '../home/home';
+import { ResetpasswordPage } from '../resetpassword/resetpassword';
+import { SignupPage } from '../signup/signup';
 
 /**
  * Generated class for the LoginPage page.
@@ -13,10 +16,10 @@ import { NgForm } from '@angular/forms';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+    selector: 'page-signin-with-email',
+    templateUrl: 'signinwithemail.html',
 })
-export class LoginPage {
+export class SigninWithEmailPage {
 
   user = {} as User;
 
@@ -33,7 +36,7 @@ export class LoginPage {
     if (this.form.form.valid) {
       this.afAuth.signIn(this.user)
         .then(() => {
-          this.navCtrl.setRoot("HomePage")
+          this.navCtrl.setRoot(HomePage)
         })
         .catch((error: any) => {
           let toast = this.toast.create({
@@ -62,11 +65,11 @@ export class LoginPage {
   }
 
   register(){
-    this.navCtrl.push("RegisterPage");
+    this.navCtrl.push(SignupPage);
   }
 
   resetPassword() {
-    this.navCtrl.push("ResetpasswordPage");
+    this.navCtrl.push(ResetpasswordPage);
   }
 
   ionViewDidLoad() {

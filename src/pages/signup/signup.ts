@@ -4,19 +4,12 @@ import { User } from '../../models/user';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../providers/auth/auth-service';
 
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
-  selector: 'page-register',
-  templateUrl: 'register.html',
+    selector: 'page-signup',
+    templateUrl: 'signup.html',
 })
-export class RegisterPage {
+export class SignupPage {
   
   user = {} as User;
   

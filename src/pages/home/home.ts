@@ -4,6 +4,8 @@ import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/data
 import { Profile } from '../../models/profile';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeInterstitialConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { SigninPage } from '../signin/signin';
+import { AuthService } from '../../providers/auth/auth-service';
 
 /**
  * Generated class for the HomePage page.
@@ -23,7 +25,7 @@ export class HomePage {
 
   constructor(
     private adMobFree: AdMobFree,
-    private afAuth: AngularFireAuth,
+    private afAuth: AuthService,
     private afDataBase: AngularFireDatabase,
     private toast: ToastController,
     public navCtrl: NavController,
@@ -36,7 +38,7 @@ export class HomePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
 
-    this.afAuth.authState.subscribe(data => {
+    /* this.afAuth.authState.subscribe(data => {
       if (data && data.email && data.uid) {
         this.toast.create({
           message: `Bem Vindo ao APP_NAME, ${data.email}`,
@@ -51,13 +53,13 @@ export class HomePage {
           duration: 3000
         }).present();
       }
-    });
+    }); */
   }
 
   signOut() {
-    this.afAuth.auth.signOut()
+    this.afAuth.signOutFirebase()
       .then(() => {
-        this.navCtrl.setRoot("LoginPage");
+        this.navCtrl.setRoot(SigninPage);
       })
       .catch((error) => {
         console.error(error);
